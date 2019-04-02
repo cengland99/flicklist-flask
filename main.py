@@ -1,13 +1,14 @@
 from flask import Flask
 
 app = Flask(__name__)
-
+import random
 app.config['DEBUG'] = True      # displays runtime errors in the browser, too
 
 @app.route("/")
 def index():
     # choose a movie by invoking our new function
     movie = get_random_movie()
+    movie2 = get_random_movie()
 
     # build the response string
     content = "<h1>Movie of the Day</h1>"
@@ -17,13 +18,20 @@ def index():
 
     # TODO: pick another random movie, and display it under
     # the heading "<h1>Tommorrow's Movie</h1>"
+    content2 = "<h1>Tommorrow's Movie</h1>"
+    content2 += "<ul>"
+    content2 += "<li>" + movie2 + "<li>"
+    content2 += "</ul>"
 
-    return content
+    return (content + content2)
 
 def get_random_movie():
     # TODO: make a list with at least 5 movie titles
+    movies = ["Top Gun", "The Big Lebowski", "Patriot Games", "Clear and Present Danger", "Instant Family"]
     # TODO: randomly choose one of the movies, and return it
-    return "The Big Lebowski"
+    random_movie = random.SystemRandom()
+    return(random_movie.choice(movies))
+    # return "The Big Lebowski"
 
 
 app.run()
