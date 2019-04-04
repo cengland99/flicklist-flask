@@ -39,14 +39,18 @@ add_form = """
 # a form for crossing off watched movies
 crossoff_form = """
     <form action="/remove" method="post">
-        <label for="crossoff-movie">
-            I want to cross off
-            <input type="text" id="crossed-off-movie" name="crossed-off-movie"/>
-            from my watchlist.
+        <label for="crossed-off-movie">
+        I want to cross off
+        <select name = "crossed-off-movie">
+        <option valule="BladeRunner">BladeRunner</option>
+        <option valule="Ghost Busters">GhostBusters</option>
+        <option valule="Patriot Games">PG</option>
+        <option valule="Clear and Present Danger">CPD</option>
+        </select>
+        from my Watchlist.
         </label>
         <input type="submit" value="Remove It"/>
     </form>
-
 """
 
 # TODO:
@@ -61,7 +65,8 @@ def crossoff_movie():
     sentence = crossed_off_movie_element + " has been removed from your Watchlist!"
     content = page_header + "<p>" + sentence + "</p>" + page_footer
 
-    return content
+    return  content 
+
 
 # TODO:
 # modify the crossoff_form above to use a dropdown (<select>) instead of
