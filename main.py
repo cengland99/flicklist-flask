@@ -38,6 +38,14 @@ add_form = """
 
 # a form for crossing off watched movies
 crossoff_form = """
+    <form action="/remove" method="post">
+        <label for="crossoff-movie">
+            I want to cross off
+            <input type="text" id="crossed-off-movie" name="crossed-off-movie"/>
+            from my watchlist.
+        </label>
+        <input type="submit" value="Remove It"/>
+    </form>
 
 """
 
@@ -46,8 +54,14 @@ crossoff_form = """
 # "Star Wars has been crossed off your watchlist".
 # And create a route above the function definition to receive and handle the request from 
 # your crossoff_form.
+@app.route("/remove", methods=['POST'])
 def crossoff_movie():
-    crossed_off_movie = request.form['crossed-off-movie']    
+    crossed_off_movie = request.form['crossed-off-movie']
+    crossed_off_movie_element = "<strike>" + crossed_off_movie + "</strike>"
+    sentence = crossed_off_movie_element + " has been removed from your Watchlist!"
+    content = page_header + "<p>" + sentence + "</p>" + page_footer
+
+    return content
 
 # TODO:
 # modify the crossoff_form above to use a dropdown (<select>) instead of
@@ -70,8 +84,7 @@ def index():
     edit_header = "<h2>Edit My Watchlist</h2>"
 
     # build the response string
-    content = page_header + edit_header + add_form + page_footer
-
+    content = page_header + edit_header + add_form + crossoff_form + page_footer
     return content
 
 
